@@ -1,31 +1,27 @@
 class RecentModel {
-  String slug;
   String title;
-  int episode;
-  String cover;
-  String url;
+  String image;
+  String animeId;
+  String ratings;
 
   RecentModel({
-    required this.slug,
     required this.title,
-    required this.episode,
-    required this.cover,
-    required this.url,
+    required this.image,
+    required this.animeId,
+    required this.ratings,
   });
 
   factory RecentModel.fromJson(Map<String, dynamic> json) => RecentModel(
-        slug: json["slug"],
-        title: json["title"],
-        episode: json["episode"],
-        cover: json["cover"],
-        url: json["url"],
+        title: json["title"] ?? '',
+        image: json["image"] ?? '',
+        animeId: json["animeId"] ?? '',
+        ratings: json["ratings"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
-        "slug": slug,
         "title": title,
-        "episode": episode,
-        "cover": cover,
-        "url": url,
+        "image": image,
+        "animeId": animeId,
+        "ratings": ratings,
       };
 }

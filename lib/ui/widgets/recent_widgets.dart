@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nonime/network/models/recent_models.dart';
 import 'package:nonime/riverpod/recent_riverpod.dart';
+import 'package:nonime/ui/screens/detail_screen.dart';
+import 'package:nonime/ui/widgets/image_recent_widget.dart';
 
 class RecentWidget extends ConsumerWidget {
   const RecentWidget({super.key});
@@ -33,7 +35,7 @@ class RecentWidget extends ConsumerWidget {
           recentData.when(
             error: (error, stackTrace) => Text(
               error.toString(),
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             loading: () => const Center(
               child: CircularProgressIndicator(),
@@ -54,17 +56,13 @@ class RecentWidget extends ConsumerWidget {
                             const SizedBox(
                               width: 15,
                             ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Container(
-                                width: 180,
-                                height: 210,
-                                child: Image.network(
-                                  recent.cover,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
+                            InkWell(
+                                onTap: () => Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          DetailScreen(recent: recent.animeId),
+                                    )),
+                                child: ImageRecentWidget(recent: recent))
                           ],
                         ),
                         const SizedBox(
@@ -87,7 +85,7 @@ class RecentWidget extends ConsumerWidget {
                         SizedBox(
                           width: 165,
                           child: Text(
-                            'episode : ${recent.episode}',
+                            'Rating : ${recent.ratings}',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
